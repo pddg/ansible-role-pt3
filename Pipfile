@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 molecule = {extras = ["vagrant"],version = "*"}
 molecule-vagrant = "*"
+ansible-lint = "*"
+yamllint = "*"
 
 [requires]
 python_version = "3.7"
