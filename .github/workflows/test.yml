@@ -40,5 +40,7 @@ jobs:
           version: ${{ env.pipenv_version }}
       - name: Install dependencies
         run: pipenv sync --dev
-      - name: Run provisioning on localhost
-        run: pipenv run molecule test -s ${{ matrix.scenario }} --parallel
+      - name: Run provisioning
+        run: pipenv run molecule converge -s ${{ matrix.scenario }}
+      - name: Run idempotence test
+        run: pipenv run molecule idempotence -s ${{ matrix.scenario }}
