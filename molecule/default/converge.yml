@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include ansible-role-pt3-driver"
+      include_role:
+        name: "ansible-role-pt3-driver"

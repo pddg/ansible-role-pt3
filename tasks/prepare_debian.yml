@@ -1,0 +1,9 @@
+---
+- name: Required modules are installed
+  apt:
+    name:
+      - make
+      - git
+      - gcc
+    cache_valid_time: 3600
+  become: yes

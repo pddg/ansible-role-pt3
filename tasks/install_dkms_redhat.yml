@@ -1,0 +1,14 @@
+---
+- name: EPEL repository is enabled
+  package:
+    name:
+      - epel-release
+    state: present
+  become: yes
+
+- name: DKMS is installed
+  package:
+    name:
+      - dkms
+    state: present
+  become: yes

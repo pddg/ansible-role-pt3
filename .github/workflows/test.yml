@@ -1,0 +1,44 @@
+name: Test
+
+on: [push]
+
+env:
+  python_version: 3.7
+  pipenv_version: 2018.11.26
+
+jobs:
+  test_linux:
+    strategy:
+      matrix:
+        scenario:
+          - ubuntu
+          - centos
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ env.python_version }}
+      - name: Restore cache if available
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+      - name: Restore pipenv cache if available
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/pipenv
+          key: ${{ runner.os }}-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pipenv-
+      - name: Install pipenv
+        uses: dschep/install-pipenv-action@v1
+        with:
+          version: ${{ env.pipenv_version }}
+      - name: Install dependencies
+        run: pipenv sync --dev
+      - name: Run provisioning on localhost
+        run: pipenv run molecule test -s ${{ matrix.scenario }} --parallel
