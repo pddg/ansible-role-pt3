@@ -10,7 +10,7 @@ platforms:
     box: ubuntu/focal64
     memory: 1024
     cpus: 2
-  - name: ubuntu/bionic
+  - name: ubuntu-bionic
     box: ubuntu/bionic64
     memory: 1024
     cpus: 2
