@@ -82,13 +82,13 @@
 - name: Show dkms managed driver
   debug:
     var: pt3_dkms_managed.stdout_lines
- 
+
 - name: Ensure that DKMS manages PT3 driver
   shell: "bash ./dkms.install"
   args:
     chdir: "{{ pt3_base_dir }}"
   register: pt3_enable_dkms
-  when: pt3_dkms_managed.stdout == ""
+  when: pt3_dkms_managed.stdout | length == 0
   become: yes
 
 - name: Reboot
