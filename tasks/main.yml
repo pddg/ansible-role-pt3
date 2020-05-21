@@ -74,7 +74,9 @@
         msg: "Failed to build or install pt3 driver."
 
 - name: Ensure that PT3 driver is managed by DKMS
-  shell: "/sbin/dkms status | grep pt3"
+  shell: "dkms status | grep pt3"
+  environment:
+    PATH: "/sbin:/usr/sbin:{{ ansible_env.PATH }}"
   register: pt3_dkms_managed
   changed_when: false
   ignore_errors: true
