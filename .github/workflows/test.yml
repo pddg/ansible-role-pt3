@@ -9,10 +9,13 @@ env:
 jobs:
   test_linux:
     strategy:
+      fail-fast: false
       matrix:
         scenario:
-          - ubuntu
-          - centos
+          - ubuntu-focal
+          - ubuntu-bionic
+          - centos-8
+          - centos-7
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
@@ -41,6 +44,4 @@ jobs:
       - name: Install dependencies
         run: pipenv sync --dev
       - name: Run provisioning
-        run: pipenv run molecule converge -s ${{ matrix.scenario }}
-      - name: Run idempotence test
-        run: pipenv run molecule idempotence -s ${{ matrix.scenario }}
+        run: pipenv run molecule test -s ${{ matrix.scenario }}
