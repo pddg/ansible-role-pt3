@@ -43,8 +43,6 @@ jobs:
           version: ${{ env.pipenv_version }}
       - name: Install dependencies
         run: pipenv sync --dev
-      - name: Upgrade VirtualBox and Vagrant
-        run: brew cask upgrade virtualbox && brew upgrade vagrant
       - name: Run provisioning
         run: pipenv run molecule test -s ${{ matrix.scenario }}
         timeout-minutes: 15
