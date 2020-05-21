@@ -6,12 +6,8 @@ driver:
   provider:
     name: virtualbox
 platforms:
-  - name: centos8
-    box: bento/centos-8.1
-    memory: 1024
-    cpus: 2
-  - name: centos7
-    box: bento/centos-7.8
+  - name: ubuntu-bionic
+    box: ubuntu/bionic64
     memory: 1024
     cpus: 2
 lint: |
@@ -20,6 +16,11 @@ lint: |
   ansible-lint
 provisioner:
   name: ansible
+  playbooks:
+    converge: ../default/converge.yml
+  config_options:
+    ssh_connection:
+      pipelining: true
   lint:
     name: ansible-lint
 verifier:
